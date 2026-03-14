@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: spellbound
+  dataSource:
+    url: jdbc:postgresql://localhost:5432/spell?currentSchema=public
+  session:
+    jdbc:
+      initialize-schema: always

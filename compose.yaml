@@ -1,0 +1,9 @@
+services:
+  database:
+    image: 'postgres'
+    ports:
+      - '5432'
+    environment:
+      - 'POSTGRES_USER=spell'
+      - 'POSTGRES_DB=spell'
+      - 'POSTGRES_PASSWORD=spell'
