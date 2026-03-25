@@ -6,3 +6,12 @@ spring:
   session:
     jdbc:
       initialize-schema: always
+  mvc:
+    problemdetails:
+      enabled: true
+  jackson:
+    visibility:
+      field: any
+      getter: none
+      setter: none
+      is-getter: none
