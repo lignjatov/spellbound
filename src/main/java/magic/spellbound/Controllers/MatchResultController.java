@@ -9,6 +9,8 @@ import magic.spellbound.Mappers.MatchResultMapper;
 import magic.spellbound.Models.MatchResult;
 import magic.spellbound.Repositories.MatchResultRepository;
 import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("match-results")
@@ -22,7 +24,22 @@ public class MatchResultController {
         this.matchResultMapper = matchResultMapper;
     }
 
-    @PostMapping()
+    @GetMapping
+    @ResponseBody
+    @Operation(summary = "Get all matches")
+    public List<MatchResultDto> getMatchResults(@RequestParam(required = false) String name) {
+        List<MatchResult> matchData = new ArrayList<>();
+        if (name != null) {
+            matchData = matchResultRepository.findByNameLikeIgnoreCase(name);
+        }
+        if (name == null || name.isBlank()) {
+            matchData = matchResultRepository.findAll();
+        }
+        
+        return matchResultMapper.toDto(matchData);
+    }
+
+    @PostMapping
     @ResponseBody
     @Operation(summary = "Creates a MatchResult entity")
     public MatchResultDto save(@Valid @RequestBody @Schema(implementation = MatchResultInsertDto.class) MatchResultInsertDto matchResultDto) {
